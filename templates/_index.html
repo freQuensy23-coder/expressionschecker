@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Expression Equality Checker</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script>
+		$(document).ready(function() {
+			$('#check-button').click(function() {
+				var expr1 = $('#expr1').val();
+				var expr2 = $('#expr2').val();
+				$.ajax({
+					url: '/',
+					method: 'POST',
+					data: {
+						expr1: expr1,
+						expr2: expr2
+					},
+					success: function(response) {
+						alert(response.message);
+					},
+					error: function() {
+						alert("An error occurred.");
+					}
+				});
+			});
+		});
+	</script>
+</head>
+<body>
+	<h1>Expression Equality Checker</h1>
+	<form>
+		<p>Enter the first expression:</p>
+		<input type="text" id="expr1"><br>
+		<p>Enter the second expression:</p>
+		<input type="text" id="expr2"><br><br>
+		<button type="button" id="check-button">Check</button>
+	</form>
+</body>
+</html>
+
