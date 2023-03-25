@@ -7,17 +7,19 @@ app = Flask(__name__)
 def check_equality(expr1, expr2):
     return sympy.simplify(expr1 - expr2) == 0
 
-def is_safe(inp_string: str):
+def _is_invalid(c):
+    return c.isalpha() or c == '_'
+
+def is_safe(inp_string):
     """ Blacklist attribute access, simply by checking for any period that is
     not surrounded by numbers. Returns True for '3.4', but not for 'a.b' """
     components = inp_string.split(".")
     if len(components) == 1:
         return True
     for c in components:
-        if not (c[0].isdigit() and c[-1].isdigit()):
+        if _is_invalid(c[0]) or _is_invalid(c[-1]):
             return False
     return True
-
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
